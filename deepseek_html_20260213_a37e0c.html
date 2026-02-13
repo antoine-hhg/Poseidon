@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Restaurant Poseidon | Griechisch in München-Nymphenburg</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+            background-color: #fcfcf9;
+            color: #2c2c2c;
+            line-height: 1.6;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+
+        h1, h2, h3, h4, .logo, .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .section-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-size: 0.8rem;
+            color: #c49a6c;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 4rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(32, 74, 96, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+            line-height: 1.2;
+        }
+
+        .logo span {
+            font-weight: 600;
+            color: #c49a6c;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(32, 74, 96, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: right 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: #c49a6c;
+        }
+
+        .desktop-nav {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .desktop-nav a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .desktop-nav a:hover {
+            color: #c49a6c;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            filter: brightness(0.8);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 20%;
+            left: 10%;
+            color: white;
+            max-width: 800px;
+        }
+
+        .hero-pre-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: #c49a6c;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title span {
+            font-weight: 600;
+            color: #c49a6c;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-address {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: #c49a6c;
+        }
+
+        /* Welcome Section */
+        .welcome {
+            padding: 8rem 4rem;
+            background-color: #fcfcf9;
+        }
+
+        .welcome-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .welcome-text h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            color: #2c2c2c;
+        }
+
+        .welcome-text .highlight {
+            color: #c49a6c;
+            font-weight: 500;
+        }
+
+        .welcome-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #4a4a4a;
+        }
+
+        .welcome-note {
+            background-color: #f0f0f0;
+            padding: 1.5rem;
+            border-left: 3px solid #c49a6c;
+            margin: 2rem 0;
+        }
+
+        .welcome-image {
+            position: relative;
+            height: 600px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #204a60 0%, #2c6a80 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.7);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-radius: 2px;
+        }
+
+        /* Info Bar */
+        .info-bar {
+            background-color: #204a60;
+            color: white;
+            padding: 3rem 4rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            text-align: center;
+        }
+
+        .info-item h4 {
+            font-size: 0.8rem;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #c49a6c;
+            margin-bottom: 1rem;
+        }
+
+        .info-item p {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            font-weight: 300;
+        }
+
+        .info-item .note {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-top: 0.5rem;
+        }
+
+        /* Menu Sections */
+        .menu-section {
+            padding: 8rem 4rem;
+        }
+
+        .menu-section.alt {
+            background-color: #f5f5f0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header .separator {
+            width: 60px;
+            height: 1px;
+            background-color: #c49a6c;
+            margin: 1.5rem auto;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .menu-category {
+            text-align: center;
+        }
+
+        .menu-category h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            color: #204a60;
+            border-bottom: 1px solid #c49a6c;
+            padding-bottom: 0.5rem;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .menu-item-name {
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .menu-item-price {
+            color: #c49a6c;
+            font-weight: 500;
+            white-space: nowrap;
+            margin-left: 1rem;
+        }
+
+        .menu-item-desc {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: -0.5rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .menu-note {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 1rem;
+            color: #4a4a4a;
+            background-color: #fff;
+            padding: 1.5rem;
+            border: 1px dashed #c49a6c;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Veggie-Vegan Section */
+        .veggie-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .veggie-card {
+            background-color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .veggie-card h4 {
+            color: #c49a6c;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Map Section */
+        .map-section {
+            position: relative;
+            height: 600px;
+            width: 100%;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            filter: grayscale(100%);
+            transition: filter 0.5s;
+        }
+
+        .map-container iframe:hover {
+            filter: grayscale(0%);
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 2rem;
+            left: 4rem;
+            background: rgba(255,255,255,0.95);
+            padding: 2rem;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .map-overlay h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #2c2c2c;
+        }
+
+        .map-overlay p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #4a4a4a;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .map-overlay .address {
+            font-weight: 500;
+            color: #c49a6c;
+            margin: 1rem 0;
+        }
+
+        .transport-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .transport-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 0;
+            border-left: 2px solid #c49a6c;
+            padding-left: 1rem;
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 8rem 4rem;
+            background-color: #204a60;
+            color: white;
+        }
+
+        .gallery .section-header h2 {
+            color: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item .image-placeholder {
+            background: linear-gradient(45deg, #2a5a70 0%, #1a3a4a 100%);
+            transition: transform 0.5s;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .gallery-item:hover .image-placeholder {
+            transform: scale(1.05);
+        }
+
+        /* Privacy Section */
+        .privacy-section {
+            padding: 8rem 4rem;
+            background-color: #fcfcf9;
+            border-top: 1px solid rgba(32,74,96,0.1);
+            border-bottom: 1px solid rgba(32,74,96,0.1);
+        }
+
+        .privacy-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .privacy-content h2 {
+            font-size: 2.5rem;
+            color: #204a60;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .privacy-content h3 {
+            font-size: 1.5rem;
+            color: #c49a6c;
+            margin: 2rem 0 1rem;
+        }
+
+        .privacy-content p {
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: #4a4a4a;
+        }
+
+        .privacy-content ul {
+            margin: 1rem 0 1.5rem 2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: #4a4a4a;
+        }
+
+        .privacy-content li {
+            margin-bottom: 0.3rem;
+        }
+
+        .privacy-source {
+            margin-top: 3rem;
+            font-style: italic;
+            text-align: right;
+            color: #666;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 4rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .contact-detail {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .contact-detail strong {
+            color: #c49a6c;
+            font-weight: 500;
+            min-width: 100px;
+            display: inline-block;
+        }
+
+        .contact-detail a {
+            color: #2c2c2c;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .contact-detail a:hover {
+            border-bottom-color: #c49a6c;
+        }
+
+        .opening-hours {
+            margin: 2rem 0;
+            background-color: #f5f5f0;
+            padding: 1.5rem;
+            border-radius: 2px;
+        }
+
+        .opening-hours p {
+            margin-bottom: 0.3rem;
+        }
+
+        /* Footer with Privacy & Cookies */
+        footer {
+            background-color: #204a60;
+            color: white;
+            padding: 3rem 4rem 1.5rem;
+            border-top: 1px solid rgba(196,154,108,0.3);
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #c49a6c;
+        }
+
+        .footer-col p, .footer-col a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            display: block;
+        }
+
+        .footer-col a:hover {
+            color: #c49a6c;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom a:hover {
+            color: #c49a6c;
+        }
+
+        .cookie-note {
+            background-color: rgba(0,0,0,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 2px;
+            font-size: 0.75rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container, header, .welcome, .menu-section, .gallery, .contact, footer, .privacy-section {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-main {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .hero-content {
+                left: 5%;
+                right: 5%;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .welcome-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-section {
+                height: 500px;
+            }
+            
+            .map-overlay {
+                position: relative;
+                top: 0;
+                left: 0;
+                max-width: 100%;
+                border-radius: 0;
+            }
+            
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-bottom a {
+                margin: 0 0.5rem;
+            }
+            
+            .veggie-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .menu-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .menu-item-price {
+                margin-left: 0;
+                margin-top: 0.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">Poseidon <span>Nymphenburg</span></a>
+        
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <nav class="desktop-nav">
+            <a href="#home">Home</a>
+            <a href="#menu">Speisekarte</a>
+            <a href="#mittag">Mittagskarte</a>
+            <a href="#veggie">Vegie-Vegan</a>
+            <a href="#gallery">Bilder</a>
+            <a href="#privacy">Datenschutz</a>
+        </nav>
+        
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home" onclick="closeMenu()">Home</a>
+            <a href="#menu" onclick="closeMenu()">Speisekarte</a>
+            <a href="#mittag" onclick="closeMenu()">Mittagskarte</a>
+            <a href="#veggie" onclick="closeMenu()">Vegie-Vegan</a>
+            <a href="#gallery" onclick="closeMenu()">Bilder</a>
+            <a href="#privacy" onclick="closeMenu()">Datenschutz</a>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-image"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-pre-title">Griechische Gastlichkeit</div>
+            <h1 class="hero-title">Restaurant<br><span>Poseidon</span></h1>
+            <div class="hero-subtitle">Direkt am Schloss Nymphenburg</div>
+            <div class="hero-address">Maria-Ward-Straße 24 · 80638 München</div>
+        </div>
+    </section>
+
+    <section id="welcome" class="welcome">
+        <div class="container">
+            <div class="welcome-grid">
+                <div class="welcome-text">
+                    <div class="section-subtitle">Kalos Orisate</div>
+                    <h2>Herzlich willkommen im <span class="highlight">Restaurant Poseidon</span></h2>
+                    <p>Griechisch essen direkt am Schloss Nymphenburg! Alle unsere Speisen sind mit original griechischem Olivenöl zubereitet.</p>
+                    
+                    <div class="welcome-note">
+                        <p><strong>Alle Speisen auch zum Mitnehmen.</strong></p>
+                        <p>Wir Arrangieren gerne Ihre Familien- und Jubiläumsfeiern sowie Geschäftsessen. Ab 30 Personen bieten wir auch einen Partyservice an. Sprechen Sie uns einfach an!</p>
+                    </div>
+                </div>
+                <div class="welcome-image">
+                    <div class="image-placeholder">Restaurant Innenansicht</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-bar">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-item">
+                    <h4>Montag – Samstag</h4>
+                    <p>11:30 – 14:30 Uhr</p>
+                    <p>17:30 – 00:00 Uhr</p>
+                </div>
+                <div class="info-item">
+                    <h4>Sonn- & Feiertage</h4>
+                    <p>11:30 – 23:00 Uhr</p>
+                </div>
+                <div class="info-item">
+                    <h4>Partyservice</h4>
+                    <p>ab 30 Personen</p>
+                    <div class="note">Auf Anfrage</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Unsere Spezialitäten</div>
+                <h2>Speisekarte</h2>
+                <div class="separator"></div>
+            </div>
+            
+            <div class="menu-grid">
+                <div class="menu-category">
+                    <h3>Vorspeisen</h3>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Tzatziki</span>
+                        <span class="menu-item-price">€ 5,80</span>
+                    </div>
+                    <div class="menu-item-desc">Griechischer Joghurt mit Gurken, Knoblauch und Olivenöl</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Taramas</span>
+                        <span class="menu-item-price">€ 6,20</span>
+                    </div>
+                    <div class="menu-item-desc">Fischrogencreme mit Zitrone und Olivenöl</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Saganaki</span>
+                        <span class="menu-item-price">€ 7,50</span>
+                    </div>
+                    <div class="menu-item-desc">Gebratener Schafskäse mit Zitrone</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Griechischer Bauernsalat</span>
+                        <span class="menu-item-price">€ 9,80</span>
+                    </div>
+                    <div class="menu-item-desc">Mit Schafskäse, Oliven, Gurken, Tomaten und Zwiebeln</div>
+                </div>
+                
+                <div class="menu-category">
+                    <h3>Fisch & Meeresfrüchte</h3>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Gegrillter Oktopus</span>
+                        <span class="menu-item-price">€ 16,80</span>
+                    </div>
+                    <div class="menu-item-desc">Vom Grill mit Olivenöl und Zitrone</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Dorade vom Grill</span>
+                        <span class="menu-item-price">€ 18,50</span>
+                    </div>
+                    <div class="menu-item-desc">Mit Kräutern gefüllt, dazu Gemüse</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Scampi Saganaki</span>
+                        <span class="menu-item-price">€ 19,80</span>
+                    </div>
+                    <div class="menu-item-desc">Scampi in Tomaten-Käse-Sauce</div>
+                </div>
+                
+                <div class="menu-category">
+                    <h3>Fleischgerichte</h3>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Souvlaki</span>
+                        <span class="menu-item-price">€ 14,80</span>
+                    </div>
+                    <div class="menu-item-desc">Vom Schweinefleisch-Spieß mit Tzatziki und Reis</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Gyros</span>
+                        <span class="menu-item-price">€ 13,80</span>
+                    </div>
+                    <div class="menu-item-desc">Vom Drehspieß mit Zwiebeln und Tzatziki</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Bifteki</span>
+                        <span class="menu-item-price">€ 15,50</span>
+                    </div>
+                    <div class="menu-item-desc">Gefülltes Hacksteak mit Schafskäse</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Lammkeule</span>
+                        <span class="menu-item-price">€ 18,90</span>
+                    </div>
+                    <div class="menu-item-desc">Geschmort mit Oregano und Kartoffeln</div>
+                </div>
+                
+                <div class="menu-category">
+                    <h3>Vegi & Vegan</h3>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Gemüsepfanne</span>
+                        <span class="menu-item-price">€ 11,80</span>
+                    </div>
+                    <div class="menu-item-desc">Frisches Saisongemüse vom Grill</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Spinat-Feta-Tasche</span>
+                        <span class="menu-item-price">€ 12,50</span>
+                    </div>
+                    <div class="menu-item-desc">Blätterteig gefüllt mit Spinat und Feta</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Falafel</span>
+                        <span class="menu-item-price">€ 10,90</span>
+                    </div>
+                    <div class="menu-item-desc">Mit Sesamsauce und Salat (vegan)</div>
+                </div>
+            </div>
+            
+            <div class="menu-note">
+                <p>Alle Speisen werden mit original griechischem Olivenöl zubereitet.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="mittag" class="menu-section alt">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Von Montag bis Samstag</div>
+                <h2>Mittagskarte</h2>
+                <div class="separator"></div>
+                <p style="font-size: 1.1rem;">11:30 – 14:30 Uhr</p>
+            </div>
+            
+            <div class="menu-grid" style="grid-template-columns: 1fr;">
+                <div class="menu-category">
+                    <div class="menu-item">
+                        <span class="menu-item-name">Gyros-Teller</span>
+                        <span class="menu-item-price">€ 8,90</span>
+                    </div>
+                    <div class="menu-item-desc">Mit Pommes und Krautsalat</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Souvlaki-Teller</span>
+                        <span class="menu-item-price">€ 9,50</span>
+                    </div>
+                    <div class="menu-item-desc">Mit Reis und Tzatziki</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Fischfilet</span>
+                        <span class="menu-item-price">€ 9,90</span>
+                    </div>
+                    <div class="menu-item-desc">Mit Kartoffeln und Gemüse</div>
+                    
+                    <div class="menu-item">
+                        <span class="menu-item-name">Vegetarischer Teller</span>
+                        <span class="menu-item-price">€ 7,90</span>
+                    </div>
+                    <div class="menu-item-desc">Gefüllte Paprika, Reis und Gemüse</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="veggie" class="menu-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Für unsere vegetarischen Gäste</div>
+                <h2>Vegie-Vegan</h2>
+                <div class="separator"></div>
+            </div>
+            
+            <div class="veggie-grid">
+                <div class="veggie-card">
+                    <h4>Vegetarische Spezialitäten</h4>
+                    <div class="menu-item" style="justify-content: center;">
+                        <span class="menu-item-name">Griechischer Bauernsalat</span>
+                        <span class="menu-item-price">€ 9,80</span>
+                    </div>
+                    <div class="menu-item" style="justify-content: center;">
+                        <span class="menu-item-name">Spinat-Feta-Tasche</span>
+                        <span class="menu-item-price">€ 12,50</span>
+                    </div>
+                    <div class="menu-item" style="justify-content: center;">
+                        <span class="menu-item-name">Gemüse-Moussaka</span>
+                        <span class="menu-item-price">€ 13,50</span>
+                    </div>
+                    <div class="menu-item" style="justify-content: center;">
+                        <span class="menu-item-name">Gefüllte Paprika</span>
+                        <span class="menu-item-price">€ 11,80</span>
+                    </div>
+                </div>
+                
+                <div class="veggie-card">
+                    <h4>Vegane Optionen</h4>
+                    <div class="menu-item" style="justify-content: center;">
+                        <span class="menu-item-name">Falafel-Teller</span>
+                        <span class="menu-item-price">€ 10,90</span>
+                    </div>
+                    <div class="menu-item" style="justify-content: center;">
+                        <span class="menu-item-name">Gemüsepfanne</span>
+                        <span class="menu-item-price">€ 11,80</span>
+                    </div>
+                    <div class="menu-item" style="justify-content: center;">
+                        <span class="menu-item-name">Griechischer Salat (ohne Feta)</span>
+                        <span class="menu-item-price">€ 8,50</span>
+                    </div>
+                    <div class="menu-item" style="justify-content: center;">
+                        <span class="menu-item-name">Ofenkartoffeln mit Kräutern</span>
+                        <span class="menu-item-price">€ 6,90</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2661.81982421875!2d11.4999999!3d48.1666667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4799fb7b9c9c9c9d%3A0x9c3b6f8b5e5b5b5b!2sMaria-Ward-Stra%C3%9Fe%2024%2C%2080638%20M%C3%BCnchen!5e0!3m2!1sde!2sde!4v1645567890123!5m2!1sde!2sde" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="map-overlay">
+            <h4>So finden Sie uns</h4>
+            <p class="address">Maria-Ward-Straße 24<br>80638 München</p>
+            
+            <h5 style="margin: 1rem 0 0.5rem; color: #2c2c2c;">Anreise</h5>
+            <ul class="transport-list">
+                <li><strong>Bus:</strong> Bus 51, 151 oder 143, Haltestelle Maria-Ward-Straße, direkt neben dem Restaurant</li>
+                <li><strong>Tram/Straßenbahn:</strong> Tram 17, Haltestelle Maria-Ward-Straße, direkt neben dem Restaurant</li>
+                <li><strong>U-Bahn:</strong> U1, Haltestelle Westfriedhof, weiter mit Bus 151, Haltestelle Maria-Ward-Straße, direkt neben dem Restaurant</li>
+                <li><strong>Auto:</strong> Nahe Romanplatz und Schloß Nymphenburg, Zufahrt über die Menzinger Straße. Bitte geben Sie "Maria-Ward-Straße" in Ihr Navigationssystem ein! Parkplatz am Restaurant.</li>
+            </ul>
+            
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #eee;">
+                <p><strong>Telefon:</strong> 089 / 17 09 44 66</p>
+                <p><strong>Fax:</strong> 089 / 10 11 97 40</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Einblicke</div>
+                <h2>Bilder</h2>
+                <div class="separator"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="image-placeholder">Restaurant Innen</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-placeholder">Terrasse</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-placeholder">Griechische Spezialitäten</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-placeholder">Fisch vom Grill</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-placeholder">Meeresfrüchte</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-placeholder">Dessert</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRIVACY SECTION - EXACTLY AS YOU PROVIDED -->
+    <section id="privacy" class="privacy-section">
+        <div class="container">
+            <div class="privacy-content">
+                <h2>Datenschutz</h2>
+                
+                <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p>
+                
+                <p>Die Nutzung unserer Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben.</p>
+                
+                <p>Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.</p>
+                
+                <h3>Cookies</h3>
+                <p>Die Internetseiten verwenden teilweise so genannte Cookies. Cookies richten auf Ihrem Rechner keinen Schaden an und enthalten keine Viren. Cookies dienen dazu, unser Angebot nutzerfreundlicher, effektiver und sicherer zu machen. Cookies sind kleine Textdateien, die auf Ihrem Rechner abgelegt werden und die Ihr Browser speichert.</p>
+                
+                <p>Die meisten der von uns verwendeten Cookies sind so genannte „Session-Cookies“. Sie werden nach Ende Ihres Besuchs automatisch gelöscht. Andere Cookies bleiben auf Ihrem Endgerät gespeichert, bis Sie diese löschen. Diese Cookies ermöglichen es uns, Ihren Browser beim nächsten Besuch wiederzuerkennen.</p>
+                
+                <p>Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder generell ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browsers aktivieren. Bei der Deaktivierung von Cookies kann die Funktionalität dieser Website eingeschränkt sein.</p>
+                
+                <h3>Server-Log-Files</h3>
+                <p>Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten Server-Log Files, die Ihr Browser automatisch an uns übermittelt. Dies sind:</p>
+                <ul>
+                    <li>Browsertyp/ Browserversion</li>
+                    <li>verwendetes Betriebssystem</li>
+                    <li>Referrer URL</li>
+                    <li>Hostname des zugreifenden Rechners</li>
+                    <li>Uhrzeit der Serveranfrage</li>
+                </ul>
+                <p>Diese Daten sind nicht bestimmten Personen zuordenbar. Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen. Wir behalten uns vor, diese Daten nachträglich zu prüfen, wenn uns konkrete Anhaltspunkte für eine rechtswidrige Nutzung bekannt werden.</p>
+                
+                <h3>Widerspruch Werbe-Mails</h3>
+                <p>Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit widersprochen. Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-E-Mails, vor.</p>
+                
+                <div class="privacy-source">Quellenangabe: eRecht24</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Kontakt</div>
+                <h2>Besuchen Sie uns</h2>
+                <div class="separator"></div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Restaurant Poseidon</h3>
+                    <p style="font-size: 1.1rem; margin-bottom: 2rem; font-style: italic;">Eine elegante Erfahrung</p>
+                    
+                    <div class="contact-detail">
+                        <strong>Adresse:</strong> Maria-Ward-Straße 24, 80638 München
+                    </div>
+                    <div class="contact-detail">
+                        <strong>Telefon:</strong> <a href="tel:+498917094466">089 / 17 09 44 66</a>
+                    </div>
+                    <div class="contact-detail">
+                        <strong>Fax:</strong> 089 / 10 11 97 40
+                    </div>
+                    
+                    <div class="opening-hours">
+                        <p><strong>Montag bis Samstag:</strong> 11:30 – 14:30 Uhr & 17:30 – 00:00 Uhr</p>
+                        <p><strong>Sonn- & Feiertage:</strong> 11:30 – 23:00 Uhr</p>
+                    </div>
+                    
+                    <p>Für Familienfeiern, Jubiläen und Geschäftsessen stehen wir Ihnen gerne zur Verfügung. Ab 30 Personen bieten wir Partyservice an.</p>
+                </div>
+                
+                <div style="background: #f5f5f0; padding: 2rem; border-radius: 2px;">
+                    <h3 style="margin-bottom: 1.5rem;">Reservierung & Anfragen</h3>
+                    <p style="margin-bottom: 1rem;">Bitte reservieren Sie telefonisch zu unseren Öffnungszeiten.</p>
+                    <p style="font-size: 1.2rem; color: #c49a6c; margin-bottom: 1rem;">089 / 17 09 44 66</p>
+                    <p>Für größere Gesellschaften und Partyservice sprechen Sie uns einfach an – wir erstellen Ihnen gerne ein individuelles Angebot.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-main">
+            <div class="footer-col">
+                <h4>Restaurant Poseidon</h4>
+                <p>Griechische Gastlichkeit direkt am Schloss Nymphenburg. Authentische Küche mit original griechischem Olivenöl.</p>
+                <p style="margin-top: 1rem;">Maria-Ward-Straße 24<br>80638 München</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Öffnungszeiten</h4>
+                <p>Mo–Sa: 11:30–14:30</p>
+                <p>Mo–Sa: 17:30–00:00</p>
+                <p>So & Feiertage: 11:30–23:00</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Kontakt</h4>
+                <p>Tel: 089 / 17 09 44 66</p>
+                <p>Fax: 089 / 10 11 97 40</p>
+                <p style="margin-top: 1rem;">Partyservice ab 30 Personen</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Rechtliches</h4>
+                <a href="#privacy">Datenschutz</a>
+                <a href="#">Impressum</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div>Copyright © 2026 Poseidon Nymphenburg. All Right Reserved.</div>
+            <div>
+                <a href="#privacy">Datenschutz</a>
+                <a href="#">Impressum</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        function closeMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                closeMenu();
+            });
+        });
+    </script>
+</body>
+</html>
